@@ -1,10 +1,12 @@
 package com.example.administrator.newsclient;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -35,13 +37,27 @@ public class GuideActivity extends  BaseActivity{
         return R.layout.activity_guide;
     }
 
+
     @Override
     protected void initListener() {
+    btnGO.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            enterMainActivity();
+        }
+    });
+    }
 
+    private void enterMainActivity() {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     protected void initView() {
+    iv01= (ImageView) findViewById(R.id.iv_01);
+    btnGO = (Button) findViewById(R.id.btn_go);
 
     }
 
@@ -61,6 +77,7 @@ public class GuideActivity extends  BaseActivity{
     };
 
     private void startAnimation() {
+
         count ++;
         count = count %imagesArray.length;//取余数
         iv01.setBackgroundResource(imagesArray[count]);
@@ -80,7 +97,8 @@ public class GuideActivity extends  BaseActivity{
 
                     @Override
                     public void onAnimationEnd(Animator animator) {
-                        mHandle.sendEmptyMessageDelayed(0,1000);
+                        /*mHandle.sendEmptyMessageDelayed(0,1000);*/
+                        startAnimation();
                     }
 
                     @Override
@@ -112,6 +130,7 @@ public class GuideActivity extends  BaseActivity{
     public void onStart(){
         super.onStart();
         playBackgroundMusic();
+        startAnimation();
     }
     protected void onStep(){
         super.onStop();
@@ -121,4 +140,5 @@ public class GuideActivity extends  BaseActivity{
             mMediaPlayer=null;
         }
     }
+
 }

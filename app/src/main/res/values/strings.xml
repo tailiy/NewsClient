@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NewsClient</string>
+    <string name="R.string.navigation_drawer_open">open</string>
+    <string name="R.string.navigation_drawer_colse">colse</string>
 </resources>

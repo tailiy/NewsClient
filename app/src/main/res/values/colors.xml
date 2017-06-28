@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorwhile">#fff</color>
+    <color name="tab_text_normal">#0ff</color>
+    <color name="tab_text_checked">#098765</color>
+    <color name="bule">#6699FF</color>
 </resources>

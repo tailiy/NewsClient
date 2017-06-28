@@ -16,6 +16,9 @@
         </activity>
         <activity android:name=".GuideActivity" android:theme="@style/Fullscreen"></activity>
         <activity android:name=".MainActivity"></activity>
-    </application>
 
+    </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

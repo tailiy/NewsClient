@@ -37,7 +37,6 @@ public class startActivity extends BaseActivity {
                 }else{
                     enterMainActivity();
                 }
-
             }
         }.start();
     }
