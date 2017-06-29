@@ -1,6 +1,8 @@
 package com.example.administrator.newsclient;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.daimajia.slider.library.SliderLayout;
@@ -61,7 +63,15 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void inintListener() {
-
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    NewsEntity.ResultBean newsBean = (NewsEntity.ResultBean) parent.getItemAtPosition(position);
+                    Intent i = new Intent(mActivity,NewsDetailActivity.class);
+                    i.putExtra("news",newsBean);
+                    startActivity(i);
+                }
+            });
     }
 
     @Override

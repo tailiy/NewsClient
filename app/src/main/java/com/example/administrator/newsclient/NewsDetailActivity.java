@@ -1,5 +1,6 @@
 package com.example.administrator.newsclient;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -53,6 +54,19 @@ public class NewsDetailActivity extends BaseActivity{
     @Override
     protected void initData() {
         NewsEntity.ResultBean newsBean = (NewsEntity.ResultBean) getIntent().getSerializableExtra("news");
-        //webView.loadUrl(newsBean.get);
+        webView.loadUrl(newsBean.getUrl());
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setTitle(newsBean.getTitle());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

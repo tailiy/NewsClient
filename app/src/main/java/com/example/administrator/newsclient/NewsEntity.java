@@ -81,6 +81,17 @@ public class NewsEntity {
         private String tname;
         private String imgsrc;
         private String ptime;
+        private String url;
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getUrl() {
+
+            return url;
+        }
+
         /**
          * title : 四川再发山体垮塌 1人被巨石砸中身亡
          * skipID : 00AP0001|2263315
