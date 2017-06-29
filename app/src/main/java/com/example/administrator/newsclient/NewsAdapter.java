@@ -1,6 +1,7 @@
 package com.example.administrator.newsclient;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -31,9 +32,15 @@ public class NewsAdapter extends BaseAdapter{
     }
 
     @Override
+    public Object getItem(int position) {
+
+        return  listDatas.get(position);
+    }
+
+   /* @Override
     public NewsEntity.ResultBean getItem(int position) {
         return listDatas.get(position);
-    }
+    }*/
 
     @Override
     public long getItemId(int position) {
@@ -42,26 +49,25 @@ public class NewsAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        NewsEntity.ResultBean info = getItem(position);
+
+        NewsEntity.ResultBean info = (NewsEntity.ResultBean) getItem(position);
         int itemViewTYpe = getItemViewType(position);
 
-        if(itemViewTYpe==ITEM_WHIT_1_IMAGE) {
+        if (itemViewTYpe == ITEM_WHIT_1_IMAGE) {
             if (convertView == null) {
                 convertView = View.inflate(context, R.layout.item_news_1, null);
-                if (convertView == null) {
-                    convertView = View.inflate(context, R.layout.item_news_1, null);
-                }
-                ImageView ivIcon = (ImageView) convertView.findViewById(R.id.iv_icon);
-                TextView tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
-                TextView tvSource = (TextView) convertView.findViewById(R.id.tv_source);
-                TextView tvComment = (TextView) convertView.findViewById(R.id.tv_comment);
-
-                tvTitle.setText(info.getTitle());
-                tvSource.setText(info.getSource());
-                tvComment.setText(info.getReplyCount() + "跟帖");
-                Picasso.with(context).load(info.getImgsrc()).into(ivIcon);
             }
-        }else if(itemViewTYpe ==ITEM_WHIT_3_IMAGE){
+            ImageView ivIcon = (ImageView) convertView.findViewById(R.id.iv_icon);
+            TextView tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
+            TextView tvSource = (TextView) convertView.findViewById(R.id.tv_source);
+            TextView tvComment = (TextView) convertView.findViewById(R.id.tv_comment);
+
+            tvTitle.setText(info.getTitle());
+            Log.e("test", info.getTitle() + "111111111111");
+            tvSource.setText(info.getSource());
+            tvComment.setText(info.getReplyCount() + "跟帖");
+            Picasso.with(context).load(info.getImgsrc()).into(ivIcon);
+        } else if(itemViewTYpe ==ITEM_WHIT_3_IMAGE){
             if(convertView ==null){
                 convertView = View.inflate(context,R.layout.item_news_2,null);
             }
@@ -72,6 +78,7 @@ public class NewsAdapter extends BaseAdapter{
             ImageView iv03 = (ImageView) convertView.findViewById(R.id.iv_03);
 
             tvTitle.setText(info.getTitle());
+            Log.e("test",info.getTitle()+"33333333333");
             tvComment.setText(info.getReplyCount()+"跟帖");
             try {
                 Picasso.with(context).load(info.getImgsrc()).into(iv01);
@@ -80,18 +87,23 @@ public class NewsAdapter extends BaseAdapter{
             }catch (Exception e){
                 e.printStackTrace();
             }
-
         }
+
         return convertView;
     }
+
+
+    @Override
     public int getItemViewType(int position){
-        NewsEntity.ResultBean item = getItem(position);
+        NewsEntity.ResultBean item = (NewsEntity.ResultBean) getItem(position);
         if(item.getImgextra()==null||item.getImgextra().size() == 0){
             return ITEM_WHIT_1_IMAGE;
         }else{
             return ITEM_WHIT_3_IMAGE;
         }
     }
+
+    @Override
     public int getViewTypeCount(){
         return 2;
     }
