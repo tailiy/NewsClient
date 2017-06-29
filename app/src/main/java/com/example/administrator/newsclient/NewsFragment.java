@@ -1,13 +1,19 @@
 package com.example.administrator.newsclient;
 
+import android.view.View;
 import android.widget.ListView;
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/28.
@@ -5504,6 +5510,27 @@ public class NewsFragment extends BaseFragment{
             System.out.println("---没有获取到服务器的新闻数据");
             return;
         }
+        List<NewsEntity.ResultBean.AdsBean> ads = newsDatas.getResult().get(0).getAds();
+        if(ads != null && ads.size()>0){
+            View headerView = View.inflate(mActivity,R.layout.list_header,null);
+            SliderLayout sliderLayout = (SliderLayout) headerView.findViewById(R.id.slider_layout);
+
+            for(int i =0;i<ads.size();i++){
+                NewsEntity.ResultBean.AdsBean adbean = ads.get(i);
+                final TextSliderView sliderView = new TextSliderView(mActivity);
+                sliderView.description(adbean.getTitle()).image(adbean.getImgsrc());
+                sliderLayout.addSlider(sliderView);
+                sliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                    @Override
+                    public void onSliderClick(BaseSliderView slider) {
+                        showToast(slider.getDescription());
+                    }
+                });
+            }
+            listView.addHeaderView(headerView);
+        }
+
+
         NewsAdapter newsAdapter = new NewsAdapter(mActivity,newsDatas.getResult());
         listView.setAdapter(newsAdapter);
     }
